@@ -1,6 +1,6 @@
 import React from 'react'
 import BasicInputComponent from '../components/formInputs/BasicInput'
-import { videoLengths, videoQualities, listOrdering } from '../statics/TypesAndDefaults'
+import { youtubeSearchConfig, videoLengths, videoQualities, listOrdering } from '../statics/TypesAndDefaults'
 
 class SearchContainer extends React.Component {
   constructor(props) {
@@ -20,15 +20,31 @@ class SearchContainer extends React.Component {
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
-  handleSubmit(event){
-    event.preventDefault();
-    console.log('submit')
-    // TODO:
-    // 1.) Fire validation
-    // 2.) Fire action
-    // this.props.searchQueryAction()
+  prepareOptionsObj() {
+    // This is dirty, to be improved
+    let options = youtubeSearchConfig
+    if (this.state.videoLength.length > 0) {
+      options.videoDuration = this.state.videoLength
+    }
+    if (this.state.videoLength.length > 0) {
+      options.videoDefinition = this.state.videoQuality
+    }
+    if (this.state.videoLength.length > 0) {
+      options.maxResults = this.state.resultsPerPage
+    }
+    if (this.state.videoLength.length > 0) {
+      options.order = this.state.resultsOrder
+    }
+    return options
   }
-videoLengths
+  handleSubmit(event){
+    // TODO:
+    // Validation
+    event.preventDefault();
+    const query = `${this.state.stringMain}|${this.state.stringOr} -${this.state.stringNot}` 
+    const options = this.prepareOptionsObj()
+    this.props.searchQueryAction(query, options)
+  }
   render() {
     return(
       <div className="search">

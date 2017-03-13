@@ -30,8 +30,8 @@ const mapDispatchToProps = dispatch => ({
   addAlbumAction() {
     dispatch(addAlbumAction())
   },
-  searchQueryAction() {
-    dispatch(searchQueryAction('deadmau5'))
+  searchQueryAction(query, options) {
+    dispatch(searchQueryAction(query, options))
   },
   dispatch
 })
