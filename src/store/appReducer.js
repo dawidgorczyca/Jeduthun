@@ -12,8 +12,9 @@ export const addAlbumAction = (album) => ({
 
 export function searchQueryAction (query, options) {
   return dispatch => {
-    searchYoutube(query, options, function(err, results){
+    searchYoutube(query, options, function(err, results, pageInfo){
       console.log(results)
+      console.log(pageInfo)
       if(err) return console.log(err)
       dispatch(addAlbumAction(results))
     })
