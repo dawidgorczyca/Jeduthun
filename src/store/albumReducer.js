@@ -31,12 +31,6 @@ export const INITIAL_STATE = albumObject
 const reducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case PLAY_ALBUM:
-      ytSearch('rubber johnny', { maxResults:10, key: 'AIzaSyDSYCcZfNICbkuweKxnrpCLTse_nO_FFgA'}, function(err, results, pageInfo) {
-        console.dir(results)
-        ytSearch('rubber johnny', { maxResults:10, pageToken: pageInfo.nextPageToken, key: 'AIzaSyDSYCcZfNICbkuweKxnrpCLTse_nO_FFgA'}, function(err, results) {
-          console.dir(results)
-        })
-      })
       state = update(state, { album: action.album })
       break
     case STOP_ALBUM:

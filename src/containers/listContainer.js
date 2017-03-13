@@ -31,14 +31,15 @@ const mapDispatchToProps = dispatch => ({
   },
   searchQueryAction() {
     dispatch(searchQueryAction('deadmau5'))
-  }
+  },
+  dispatch
 })
 
 const ListContainer = props =>
   <div className='container'>
     <button onClick={props.searchQueryAction}>Test search</button>
 
-    {props.albums.map((value, index) =>
+    {props.albums.map((value, index) => 
       <AlbumContainer album={value} key={index}
         {...albumDispatchProperties(index)(props.dispatch)}/>
     )}
