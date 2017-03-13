@@ -8,8 +8,8 @@ import { playAlbumAction,
          stopAlbumAction,
          downloadAlbumAction,
          saveAlbumAction } from '../store/albumReducer'
-import AlbumContainer from './albumContainer'
-import SearchContainer from './searchContainer'
+import AlbumContainer from '../components/AlbumComponent'
+import SearchContainer from './SearchContainer'
 
 const mapStateToProps = state => ({
   albums: state

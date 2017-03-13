@@ -45,6 +45,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     case SAVE_ALBUM:
       state = update(state, { album: action.album })
       break
+    default:
+      return state
   }
 }
 

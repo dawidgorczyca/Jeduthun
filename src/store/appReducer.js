@@ -1,13 +1,6 @@
 import albumReducer from './albumReducer'
-import { albumObject } from './../statics/TypesAndDefaults'
+import { albumObject, youtubeSearchConfig } from './../statics/TypesAndDefaults'
 import searchYoutube from 'youtube-search'
-// TODO
-// 1.) Move search config to TypesAndDefaults
-// 2.) Define all defaults (safeSearch="none"...)
-const searchConfig = {
-  maxResults: 10,
-  key: 'AIzaSyDSYCcZfNICbkuweKxnrpCLTse_nO_FFgA'
-}
 
 const SEARCH_QUERY = 'SEARCH_QUERY'
 const ADD_ALBUM = 'albums/ADD_ALBUM'
@@ -43,7 +36,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       // 2.) Throw results and initialize ADD_ALBUM action for each
       // THEN:
       // 3.) Add pagination to the store (?)
-      searchYoutube(action.query, searchConfig, function(err, results) {
+      searchYoutube(action.query, youtubeSearchConfig, function(err, results) {
         if(err) return console.log(err);
         console.dir(results);
       });
