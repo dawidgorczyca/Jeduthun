@@ -3,6 +3,9 @@ import React from 'react'
 class AlbumContainer extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      
+    }
     this.playAlbum = this.playAlbum.bind(this)
   }
 
