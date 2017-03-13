@@ -5,15 +5,20 @@ import searchYoutube from 'youtube-search'
 const SEARCH_QUERY = 'SEARCH_QUERY'
 const ADD_ALBUM = 'albums/ADD_ALBUM'
 
-export const addAlbumAction = () => ({
-  type: ADD_ALBUM
+export const addAlbumAction = (album) => ({
+  type: ADD_ALBUM,
+  album
 })
 
-export const searchQueryAction = (query, options) => ({
-  type: SEARCH_QUERY,
-  query,
-  options
-})
+export function searchQueryAction (query, options) {
+  return dispatch => {
+    searchYoutube(query, options, function(err, results){
+      console.log(results)
+      if(err) return console.log(err)
+      dispatch(addAlbumAction(results))
+    })
+  }
+}
 
 export const INITIAL_STATE = [albumObject,albumObject]
 
@@ -37,18 +42,8 @@ const reducer = (state = INITIAL_STATE, action) => {
       // 2.) Throw results and initialize ADD_ALBUM action for each
       // THEN:
       // 3.) Add pagination to the store (?)
-      console.log('query:')
-      console.log(action.query)
-
-      console.log('options:')
-      console.log(action.options)
-      searchYoutube(action.query, action.options, function(err, results) {
-        if(err) return console.log(err);
-        console.dir(results);
-      });
       return [
-        ...state,
-        {} // add results to store
+        ...state
       ]
     default:
       return [
