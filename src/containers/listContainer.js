@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import bindIndexToActionCreators from '../store/bindIndexToActionCreators'
-import { addAlbumAction, searchQueryAction } from '../store/listReducer'
+import { addAlbumAction, searchQueryAction } from '../store/appReducer'
 import { playAlbumAction,
          stopAlbumAction,
          downloadAlbumAction,
          saveAlbumAction } from '../store/albumReducer'
 import AlbumContainer from './albumContainer'
+import SearchContainer from './searchContainer'
 
 const mapStateToProps = state => ({
   albums: state
@@ -37,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
 
 const ListContainer = props =>
   <div className='container'>
-    <button onClick={props.searchQueryAction}>Test search</button>
+    <SearchContainer searchQueryAction={props.searchQueryAction}/>
 
     {props.albums.map((value, index) => 
       <AlbumContainer album={value} key={index}

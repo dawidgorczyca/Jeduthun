@@ -1,5 +1,8 @@
 import { albumObject } from './../statics/TypesAndDefaults'
-import ytSearch from 'youtube-search'
+
+// TODO:
+// 1.) Modify according to recieved data for album
+// 2.) Work through every function to make it really work
 
 const update = (state, mutations) =>
   Object.assign({}, state, mutations)
