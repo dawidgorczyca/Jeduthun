@@ -1,8 +1,9 @@
 export const albumObject = {
   cover: '',
+  id: '',
   title: '',
-  artist: '',
-  length: ''
+  description: '',
+  link: ''
 }
 
 export const youtubeSearchConfig = {

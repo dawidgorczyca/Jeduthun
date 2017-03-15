@@ -6,7 +6,7 @@ import {
   videoQualities, 
   listOrdering,
   searchDefaults
- } from '../statics/TypesAndDefaults'
+} from '../statics/TypesAndDefaults'
 
 class SearchContainer extends React.Component {
   constructor(props) {
