@@ -1,19 +1,17 @@
 import React from 'react'
 import BasicInputComponent from '../components/formInputs/BasicInput'
-import { youtubeSearchConfig, videoLengths, videoQualities, listOrdering } from '../statics/TypesAndDefaults'
+import { 
+  youtubeSearchConfig,
+  videoLengths, 
+  videoQualities, 
+  listOrdering,
+  searchDefaults
+ } from '../statics/TypesAndDefaults'
 
 class SearchContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      stringMain: '',
-      stringOr: '',
-      stringNot: '',
-      videoLength: '',
-      videoQuality: '',
-      resultsOrder: '',
-      resultsPerPage: ''
-    }
+    this.state = searchDefaults
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }

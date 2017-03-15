@@ -64,3 +64,13 @@ export const listOrdering = [
     value: 'viewCount'
   }
 ]
+
+export const searchDefaults = {
+  stringMain: '',
+  stringOr: '',
+  stringNot: '',
+  videoLength: 'short',
+  videoQuality: 'any',
+  resultsOrder: 'relevance',
+  resultsPerPage: '10'
+}
