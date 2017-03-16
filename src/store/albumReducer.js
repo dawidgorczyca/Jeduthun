@@ -30,15 +30,14 @@ export const saveAlbumAction = (album) => ({
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case PLAY_ALBUM:
-      return update(state, {$merge: {added: true}})
+      return update(state, {$merge: {flag: 'playing'}})
     case STOP_ALBUM:
-      state = update(state, { album: action.album })
-      break
+      return update(state, {$merge: {flag: undefined}})
     case DOWNLOAD_ALBUM:
-      state = update(state, { album: action.album })
+      return update(state, {$merge: action.album})
       break
     case SAVE_ALBUM:
-      state = update(state, { album: action.album })
+      return update(state, {$merge: action.album})
       break
     default:
       return state
