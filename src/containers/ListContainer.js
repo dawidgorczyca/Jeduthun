@@ -32,7 +32,7 @@ class ListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  albums: state
+  albums: state.albums
 })
 
 const albumDispatchProperties =

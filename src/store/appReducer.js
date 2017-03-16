@@ -1,13 +1,15 @@
 import albumReducer from './albumReducer'
 import { albumObject } from './../statics/TypesAndDefaults'
 import searchYoutube from 'youtube-search'
+import update from 'immutability-helper';
+
+// TODO:
+// Add pagination to results
 
 const SEARCH_QUERY = 'SEARCH_QUERY'
 const ADD_ALBUM = 'ADD_ALBUM'
 const CLEAR_LIST = 'CLEAR_LIST'
 
-// TODO:
-// Add pagination to results
 function prepareAlbum(object) {
   return {
     cover: object.thumbnails.high,
@@ -29,7 +31,7 @@ export const clearListAction = () => ({
 
 export function searchQueryAction (query, options) {
   return dispatch => {
-    dispatch(clearListAction())
+    // dispatch(clearListAction())
     searchYoutube(query, options, function(err, results, pageInfo){
       if(err) return console.log(err)
       console.log(results)
@@ -41,32 +43,34 @@ export function searchQueryAction (query, options) {
   }
 }
 
-export const INITIAL_STATE = []
+export const INITIAL_STATE = {
+  albums: [],
+  listConfiguration: {},
+}
 
 const reducer = (state = INITIAL_STATE, action) => {
   if(action.type.startsWith('albums/')) {
     return [
-      ...state.slice(0, action.index),
-      albumReducer(state[action.index], action),
-      ...state.slice(action.index + 1)
+      ...state.albums.slice(0, action.index),
+      albumReducer(state.albums[action.index], action),
+      ...state.albums.slice(action.index + 1)
     ]
   }
   switch (action.type) {
     case ADD_ALBUM:
-      return [
-        ...state,
-        prepareAlbum(action.album)
-      ]
+      return update(state, {
+        albums: {$push: [prepareAlbum(action.album)]}
+      })
     case SEARCH_QUERY:
-      return [
-        state = INITIAL_STATE
-      ]
-    case CLEAR_LIST:
-      return []
-    default:
-      return [
+      return {
         ...state
-      ]
+      }
+    case CLEAR_LIST:
+      return INITIAL_STATE
+    default:
+      return {
+        ...state
+      }
   }
 }
 
