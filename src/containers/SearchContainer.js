@@ -48,7 +48,9 @@ class SearchContainer extends React.Component {
     if(event){
       event.preventDefault()
     }
-    const query = `${this.state.stringMain}${this.state.stringOr.length ? ' |'+ this.state.stringOr : ''}${this.state.stringNot.length ? ' -' + this.state.stringNot : ''}` 
+    const stringOr = this.state.stringOr.length ? ' |'+ this.state.stringOr : ''
+    const stringNot = this.state.stringNot.length ? ' -' + this.state.stringNot : '' 
+    const query = `${this.state.stringMain}${stringOr}${stringNot}` 
     const options = this.prepareOptionsObj(direction)
     this.props.searchQueryAction(query, options)
   }

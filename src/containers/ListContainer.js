@@ -22,7 +22,6 @@ class ListContainer extends Component {
   handlePageLoad(query, options, pageToken) {
     this.props.dispatch(loadResultsPageAction(query, options, pageToken))
   }
-  // TODO: Paginate the results visible
   render() { return(
     <div className='container'>
       <SearchContainer 
@@ -30,7 +29,6 @@ class ListContainer extends Component {
         nextPageToken={this.props.listConfiguration.nextPageToken}
         prevPageToken={this.props.listConfiguration.prevPageToken}
       />
-
       {this.props.albums.map((value, index) => 
         <AlbumContainer album={value} key={index}
           {...albumDispatchProperties(index)(this.props.dispatch)}/>
