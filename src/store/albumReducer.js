@@ -1,11 +1,9 @@
 import { albumObject } from './../statics/TypesAndDefaults'
+import update from 'immutability-helper'
 
 // TODO:
 // 1.) Modify according to recieved data for album
 // 2.) Work through every function to make it really work
-
-const update = (state, mutations) =>
-  Object.assign({}, state, mutations)
 
 const PLAY_ALBUM = 'albums/PLAY_ALBUM'
 const STOP_ALBUM = 'albums/STOP_ALBUM'
@@ -29,13 +27,10 @@ export const saveAlbumAction = (album) => ({
   album
 })
 
-export const INITIAL_STATE = albumObject
-
-const reducer = (state = INITIAL_STATE, action) => {
+const reducer = (state = {}, action) => {
   switch(action.type) {
     case PLAY_ALBUM:
-      state = update(state, { album: action.album })
-      break
+      return update(state, {$merge: {added: true}})
     case STOP_ALBUM:
       state = update(state, { album: action.album })
       break

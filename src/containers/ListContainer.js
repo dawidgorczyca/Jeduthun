@@ -10,6 +10,7 @@ import { playAlbumAction,
          saveAlbumAction } from '../store/albumReducer'
 import AlbumContainer from '../components/AlbumComponent'
 import SearchContainer from './SearchContainer'
+import PaginationComponent from '../components/PaginationComponent'
 
 class ListContainer extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class ListContainer extends Component {
   handleSearch(query, options) {
     this.props.dispatch(searchQueryAction(query, options))
   }
+  // TODO: Paginate the results visible
   render() { return(
     <div className='container'>
       <SearchContainer searchQueryAction={this.handleSearch}/>
@@ -27,12 +29,18 @@ class ListContainer extends Component {
         <AlbumContainer album={value} key={index}
           {...albumDispatchProperties(index)(this.props.dispatch)}/>
       )}
+      <PaginationComponent
+        resultsPerPage={this.props.listConfiguration.resultsPerPage}
+        nextPageToken={this.props.listConfiguration.nextPageToken}
+        previousPageToken={this.props.listConfiguration.previousPageToken}
+      />
     </div>
   )}
 }
 
 const mapStateToProps = state => ({
-  albums: state.albums
+  albums: state.albums,
+  listConfiguration: state.listConfiguration
 })
 
 const albumDispatchProperties =
