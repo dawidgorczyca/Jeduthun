@@ -2,9 +2,6 @@ import albumReducer from './albumReducer'
 import searchYoutube from 'youtube-search'
 import update from 'immutability-helper'
 
-// TODO:
-// Add pagination to results
-
 const SEARCH_QUERY = 'SEARCH_QUERY'
 const ADD_ALBUM = 'ADD_ALBUM'
 const CLEAR_LIST = 'CLEAR_LIST'
