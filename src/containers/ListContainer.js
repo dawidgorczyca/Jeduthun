@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import bindIndexToActionCreators from '../store/bindIndexToActionCreators'
-import { addAlbumAction, searchQueryAction } from '../store/appReducer'
+import { addAlbumAction, searchQueryAction, loadResultsPageAction } from '../store/appReducer'
 import { playAlbumAction,
          stopAlbumAction,
          downloadAlbumAction,
          saveAlbumAction } from '../store/albumReducer'
 import AlbumContainer from '../components/AlbumComponent'
 import SearchContainer from './SearchContainer'
-import PaginationComponent from '../components/PaginationComponent'
 
 class ListContainer extends Component {
   constructor(props) {
@@ -20,20 +19,22 @@ class ListContainer extends Component {
   handleSearch(query, options) {
     this.props.dispatch(searchQueryAction(query, options))
   }
+  handlePageLoad(query, options, pageToken) {
+    this.props.dispatch(loadResultsPageAction(query, options, pageToken))
+  }
   // TODO: Paginate the results visible
   render() { return(
     <div className='container'>
-      <SearchContainer searchQueryAction={this.handleSearch}/>
+      <SearchContainer 
+        searchQueryAction={this.handleSearch}
+        nextPageToken={this.props.listConfiguration.nextPageToken}
+        prevPageToken={this.props.listConfiguration.prevPageToken}
+      />
 
       {this.props.albums.map((value, index) => 
         <AlbumContainer album={value} key={index}
           {...albumDispatchProperties(index)(this.props.dispatch)}/>
       )}
-      <PaginationComponent
-        resultsPerPage={this.props.listConfiguration.resultsPerPage}
-        nextPageToken={this.props.listConfiguration.nextPageToken}
-        previousPageToken={this.props.listConfiguration.previousPageToken}
-      />
     </div>
   )}
 }

@@ -7,6 +7,7 @@ import {
   listOrdering,
   searchDefaults
 } from '../statics/TypesAndDefaults'
+import PaginationComponent from '../components/PaginationComponent'
 
 class SearchContainer extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class SearchContainer extends React.Component {
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
-  prepareOptionsObj() {
+  prepareOptionsObj(direction) {
     // This is dirty, to be improved
     let options = youtubeSearchConfig
     if (this.state.videoLength.length > 0) {
@@ -33,14 +34,22 @@ class SearchContainer extends React.Component {
     if (this.state.videoLength.length > 0) {
       options.order = this.state.resultsOrder
     }
+    if (this.props.nextPageToken && direction === 'next') {
+      options.pageToken = this.props.nextPageToken
+    }
+    if (this.props.prevPageToken && direction === 'prev') {
+      options.pageToken = this.props.prevPageToken
+    }
     return options
   }
-  handleSubmit(event){
+  handleSubmit(event, direction) {
     // TODO:
     // Validation
-    event.preventDefault();
+    if(event){
+      event.preventDefault()
+    }
     const query = `${this.state.stringMain}|${this.state.stringOr} -${this.state.stringNot}` 
-    const options = this.prepareOptionsObj()
+    const options = this.prepareOptionsObj(direction)
     this.props.searchQueryAction(query, options)
   }
   render() {
@@ -115,6 +124,11 @@ class SearchContainer extends React.Component {
           </div>
           <input type="submit" value="Submit"/>
         </form>
+        
+        <PaginationComponent
+          handlePageLoadNext={() => this.handleSubmit(null, 'next')}
+          handlePageLoadPrev={() => this.handleSubmit(null, 'prev')}
+        />
       </div>
     )
   }
